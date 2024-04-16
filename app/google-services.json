@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "970940151278",
+    "project_id": "icebear-b1390",
+    "storage_bucket": "icebear-b1390.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970940151278:android:2eb56a5d18e3c691c18aff",
+        "android_client_info": {
+          "package_name": "com.example.icebear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjaD3slO1qDJVVPe6zRJStcwIxN3kDJ6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
