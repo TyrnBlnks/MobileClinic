@@ -20,15 +20,17 @@ public class Register extends AppCompatActivity {
     private EditText passwordInput;
     private EditText confirmPasswordInput;
     private Button createProfileButton;
+    private UserDbHelper dbHelper;  // Database helper
 
-    // Temporary storage simulation. Consider replacing this with a database solution.
-    private static final HashMap<String, HashMap<String, String>> userAccounts = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register); // Make sure this matches your XML file name
 
+        dbHelper = new UserDbHelper(this);  // Initialize the database helper
+
+        // Initialize UI components
         firstNameInput = findViewById(R.id.firstname_input);
         lastNameInput = findViewById(R.id.lastname_input);
         emailInput = findViewById(R.id.email);
@@ -52,39 +54,32 @@ public class Register extends AppCompatActivity {
     }
 
     private void registerAccount(String firstName, String lastName, String email, String password) {
-        // Storing the first name and last name along with the email and password
-        HashMap<String, String> userDetails = new HashMap<>();
-        userDetails.put("firstName", firstName);
-        userDetails.put("lastName", lastName);
-        userDetails.put("password", password);
-
-        userAccounts.put(email, userDetails);
-
-        // Notify user of success
-        Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
-
-        // Start HomeActivity
-        Intent intent = new Intent(Register.this, MainActivity.class);
-        startActivity(intent);
-        finish(); // Close the register activity so it's not on the back stack
+        // Instead of using HashMap, now use SQLite database to store the user details
+        long userId = dbHelper.addUser(firstName, lastName, email, password);
+        if (userId == -1) {
+            Toast.makeText(this, "Registration failed.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Register.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Close the register activity
+        }
     }
 
-
     private boolean validateInputs(String firstName, String lastName, String email, String password, String confirmPassword) {
-        // Check for empty fields
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "All fields must be filled.", Toast.LENGTH_LONG).show();
             return false;
         }
-
-        // Check if passwords match
         if (!password.equals(confirmPassword)) {
             Toast.makeText(this, "Passwords do not match.", Toast.LENGTH_LONG).show();
             return false;
         }
-
-        // Additional validation can be added here (e.g., email format, password strength)
         return true;
     }
+
+
+
+
 
 }

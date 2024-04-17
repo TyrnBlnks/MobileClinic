@@ -17,6 +17,7 @@ public class Login extends AppCompatActivity {
 
     private EditText email;
     private EditText pass;
+    private UserDbHelper dbHelper;  // Database helper
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,54 +25,33 @@ public class Login extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        dbHelper = new UserDbHelper(this);  // Initialize the database helper
+
         // Initialize the EditText fields
         email = (EditText) findViewById(R.id.email_input);
         pass = (EditText) findViewById(R.id.password_input);
 
-        // Set padding based on system bars insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // Setup click listeners and other initializations as before
 
-        // Set up the button click listener for login
         findViewById(R.id.login_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Call the method to handle login when button is clicked
                 performLogin(email.getText().toString(), pass.getText().toString());
             }
         });
-
-        // Set up the button click listener for sign up
-        Button signUpButton = findViewById(R.id.signup_btn);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Intent to open the Register activity
-                Intent intent = new Intent(Login.this, Register.class);
-                startActivity(intent);
-            }
-        });
-
     }
-
 
     private void performLogin(String email, String password) {
         if (areCredentialsValid(email, password)) {
-            // Navigate to MainActivity
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
-            finish();  // Close the login activity so it's not accessible via the back button
+            finish();
         } else {
-            // Show error message for incorrect credentials
             Toast.makeText(Login.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
         }
     }
 
     private boolean areCredentialsValid(String email, String password) {
-        // Hardcoded valid credentials
-        return email.equals("tyrnblnks2@gmail.com") && password.equals("12345678");
+        return dbHelper.checkUser(email, password);
     }
 }

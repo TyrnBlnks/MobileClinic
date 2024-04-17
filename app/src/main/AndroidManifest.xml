@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/dutmed_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/dutmed_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ICEBEAR"
         tools:targetApi="31">
@@ -27,11 +27,10 @@
         <activity
             android:name=".Register" />
 
-        <!-- Main activity which is no longer the entry point -->
+        <!-- Main activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.ICEBEAR">
         </activity>
     </application>
