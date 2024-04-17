@@ -28,8 +28,8 @@ public class Login extends AppCompatActivity {
         dbHelper = new UserDbHelper(this);  // Initialize the database helper
 
         // Initialize the EditText fields
-        email = (EditText) findViewById(R.id.email_input);
-        pass = (EditText) findViewById(R.id.password_input);
+        email = findViewById(R.id.email_input);
+        pass = findViewById(R.id.password_input);
 
         // Setup click listeners and other initializations as before
 
