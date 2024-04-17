@@ -34,7 +34,7 @@ public class Register extends AppCompatActivity {
         emailInput = findViewById(R.id.email);
         passwordInput = findViewById(R.id.password_input);
         confirmPasswordInput = findViewById(R.id.confirmpassword_input);
-        createProfileButton = findViewById(R.id.createprofile_btn)
+        createProfileButton = findViewById(R.id.createprofile_btn);
 
         createProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
